@@ -167,9 +167,11 @@ void UART1_int (void) interrupt UART1_VECTOR
 				{
 				 	result += (SBUF-'0');
 					index = 1;
-					sprintf(szTemp, "Change Duty Cycle to: %d%%\r\n#READY#\r\n", result);
-					PrintString1(szTemp);
+					if(result <0 || result >99)
+						result = 30;
 					UpdateDC(dcs[result]);
+					sprintf(szTemp, "Change Duty Cycle to: %d%%\r\n#READY#\r\n", result);					
+					PrintString1(szTemp);
 					result = 0;
 				}
 			}
